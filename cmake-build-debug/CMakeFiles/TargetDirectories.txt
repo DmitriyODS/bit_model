@@ -1,0 +1,3 @@
+/home/dmitri/CLionProjects/bit_model/cmake-build-debug/CMakeFiles/bit_model.dir
+/home/dmitri/CLionProjects/bit_model/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/dmitri/CLionProjects/bit_model/cmake-build-debug/CMakeFiles/rebuild_cache.dir
