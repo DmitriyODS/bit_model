@@ -26,20 +26,28 @@
 #include <stdbool.h>
 #include <math.h>
 
-#define ARR_SIZE 30
+#define ALL_SIZE 30
 #define M_SIZE 24
-#define O_SIZE 5
+#define E_SIZE 5
 
 #define P_ZN 0
-#define P_ORDER 1
+#define P_EXPONENT 1
 #define P_M 6
+
+#define P_START 0
+#define P_END 29
+
+#define SHIFT_EXPONENT 49999
+
+#define BUFFER_SIZE 25
 
 #define NEW_LINE printf("\n")
 #define D_PRINT(data) printf("%d", data)
 #define S_PRINT(data) printf("%s", data)
 #define DEC_ARR_PRINT(data) printDecArr(data, data + P_END)
 
-#define P_END 29
+#define MULTIPLEXER_ADD(num_1, num_2) multiplexer(num_1, num_2, false)
+#define MULTIPLEXER_SUB(num_1, num_2) multiplexer(num_1, num_2, true)
 
 typedef unsigned char byte_t;
 typedef byte_t dec_arr_t[30];
@@ -47,40 +55,37 @@ typedef byte_t dec_arr_t[30];
 // ввод числа с клавиатуры
 byte_t *getDecArrFromStdin();
 
-// запись числа со знаком в десятичный массив
-// s_ptr - указатель на первый элемент
-// e_ptr - указатель на последний элемент
-void writeSignedNumToDecArr(const byte_t *s_ptr, byte_t *e_ptr, int num);
-
-// считывание числа со знаком из десятичного массива в число
-// s_ptr - указатель на первый элемент
-// e_ptr - указатель на последний элемент
-int scanDecArrToSignedNum(const byte_t *s_ptr, const byte_t *e_ptr);
-
 // вывод decArr на экран
 // s_ptr - указатель на первый элемент
 // e_ptr - указатель на последний элемент
 void printDecArr(byte_t *s_ptr, const byte_t *e_ptr);
 
 // преобразование decArr to int
-const char *getNumFromDecArr(const byte_t *s_ptr);
-
-// суммирование чисел
-byte_t *getSumDecArr(byte_t *s_ptr_one, byte_t *s_ptr_two);
-
-// вычитание чисел
-byte_t *getSubDecArr(byte_t *s_ptr_one, byte_t *s_ptr_two);
-
-// сдвиг значений на заданную величину
-// shift < 0 - сдвиг вправо
-// shift > 0 - сдвиг влево
-void shiftDecArr(byte_t *s_ptr, byte_t *e_ptr, int shift);
+const char *getNumFromDecArr(const byte_t *p_num);
 
 // сложение с положительным числом
 void decArrAddNum(const byte_t *s_ptr, byte_t *e_ptr, unsigned int num);
 
 // конвертирвоание в дополнительный код
 void negDecArr(byte_t *s_ptr, byte_t *e_ptr);
+
+// запись порядка со смещением
+void writeExponent(byte_t *p_num, int exponent);
+
+// чтение порядка со смещением
+int scanExponent(const byte_t *p_num);
+
+// сравнение порядков
+int cmpExponent(const byte_t *p_one, const byte_t *p_two);
+
+// получаем копию мантиссы со сдвигом
+byte_t *getShiftMantissa(const byte_t *p_num, int shift);
+
+// сложение/вычитание мантисс
+byte_t *multiplexer(byte_t *p_one, byte_t *p_two, bool is_sub);
+
+// нормализация числа
+void normalize(byte_t *p_num, int exp);
 
 
 #endif // DEC_ARR_H

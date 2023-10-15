@@ -1,5 +1,4 @@
 #include <stdio.h>
-
 #include "decArr/decArr.h"
 
 int main() {
@@ -11,17 +10,18 @@ int main() {
     DEC_ARR_PRINT(b);
     NEW_LINE;
 
-    byte_t *c = getSumDecArr(a, b);
+    byte_t *c = MULTIPLEXER_ADD(a, b);
     DEC_ARR_PRINT(c);
     NEW_LINE;
 
-    S_PRINT(getNumFromDecArr(c));
+    const char *res_str = getNumFromDecArr(c);
+    S_PRINT(res_str);
     NEW_LINE;
 
-//    printf("%d\n", 12 % 10);
-//    printf("%d\n", -12 % 10);
-//    printf("%d\n", 12 / 10);
-//    printf("%d\n", -3 / 10);
+    free(a);
+    free(b);
+    free(c);
+    free((void *) res_str);
 
     return 0;
 }
